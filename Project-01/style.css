@@ -1,0 +1,251 @@
+:root {
+    --navy: #082c42;
+    --teal: #075e68;
+    --seafoam: #c8ede7;
+    --page-background: #eaf5f4;
+    --white: #ffffff;
+    --text: #243e4a;
+    --border: #b5d8d4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--page-background);
+    color: var(--text);
+    font-family: Verdana, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.2;
+}
+
+h1 {
+    margin: 0 0 20px;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+h2 {
+    margin: 0 0 16px;
+    color: var(--teal);
+    font-size: 2rem;
+}
+
+h3 {
+    margin: 0 0 12px;
+    color: var(--navy);
+    font-size: 1.35rem;
+}
+
+p {
+    margin: 0 0 12px;
+}
+
+.site-header {
+    padding: 48px 16px 32px;
+    background: linear-gradient(135deg, var(--navy), var(--teal));
+    color: var(--white);
+    text-align: center;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-list a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: var(--white);
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover effect 1: navigation links */
+.nav-list a:hover,
+.nav-list a:focus-visible {
+    background-color: var(--seafoam);
+    color: var(--navy);
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+main section {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background-color: var(--white);
+}
+
+.skills-interests-layout {
+    display: flex;
+    gap: 20px;
+}
+
+.interest-card {
+    flex: 1;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--page-background);
+}
+
+.interest-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.project-card {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--page-background);
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect 2: project card */
+.project-card:hover,
+.project-card:focus-within {
+    background-color: var(--seafoam);
+}
+
+.project-link {
+    position: relative;
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    background-color: var(--teal);
+    color: var(--white);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect 3: project link */
+.project-link:hover,
+.project-link:focus-visible {
+    background-color: var(--navy);
+}
+
+/* This creates an explosion when the project link is clicked. */
+.ocean-spark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: var(--spark-size);
+    height: var(--spark-size);
+    border-radius: 50%;
+    background-color: var(--spark-color);
+    box-shadow: 0 0 12px var(--spark-color);
+    pointer-events: none;
+    animation: ocean-burst 1200ms ease-out forwards;
+}
+
+@keyframes ocean-burst {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(
+            calc(-50% + var(--spark-x)),
+            calc(-50% + var(--spark-y))
+        ) scale(1.4);
+    }
+}
+
+.site-footer {
+    padding: 28px 16px;
+    background-color: var(--navy);
+    color: var(--white);
+    text-align: center;
+}
+
+.site-footer h2 {
+    color: var(--white);
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+.site-footer a {
+    color: var(--seafoam);
+    transition: color 0.2s ease;
+}
+
+/* Hover effect 4: email link */
+.site-footer a:hover,
+.site-footer a:focus-visible {
+    color: var(--white);
+}
+
+@media (max-width: 600px) {
+    .skills-interests-layout {
+        flex-direction: column;
+    }
+
+    .site-header {
+        padding: 32px 12px 24px;
+    }
+
+    main {
+        padding: 20px 12px;
+    }
+
+    main section {
+        padding: 16px;
+    }
+
+    .nav-list {
+        gap: 4px 8px;
+    }
+}
+#about,
+#skills-interests,
+#projects {
+    text-align: center;
+}
+
+#about p {
+    max-width: 65ch;
+    margin: 0 auto;
+}
+
+.interest-card ul {
+    display: inline-block;
+    padding-left: 20px;
+    text-align: left;
+}

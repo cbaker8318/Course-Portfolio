@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chris Baker | Personal Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Chris Baker</h1>
+
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills-interests">Skills and Interests</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                I’m an Army veteran, a husband, and a father of three.
+                I enjoy watching soccer and spending time with my family
+                at the beach. Travel is important to me because it gives
+                me a chance to learn about different parts of the world
+                firsthand. I am wanting to use the skill I have learned in this course
+                to help me become a better teacher.  I want to use this to connect with 
+                students and help them learn in an engaging and fun way.
+
+            </p>
+        </section>
+
+        <section id="skills-interests">
+            <h2>Skills and Interests</h2>
+
+            <div class="skills-interests-layout">
+                <div class="interest-card">
+                    <h3>Skills</h3>
+                    <ul>
+                        <li>Structuring web pages with HTML</li>
+                        <li>Styling layouts with CSS</li>
+                        <li>Publishing websites with GitHub Pages</li>
+                    </ul>
+                </div>
+
+                <div class="interest-card">
+                    <h3>Interests</h3>
+                    <ul>
+                        <li>Watching soccer</li>
+                        <li>Taking beach trips with my family</li>
+                        <li>Traveling and exploring new places</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+
+            <article class="project-card">
+                <h3>Scuba Steve’s Scuba Tours</h3>
+                <p>
+                    I built this two-page website for a previous class.
+                    It introduces a fictional scuba tour company and its
+                    excursions. I used HTML and CSS and chose an ocean
+                    background to match the subject.
+                </p>
+                <a class="project-link"
+                   href="https://cbaker8318.github.io/Scuba-Steves-Scuba-Tours/">
+                    View Scuba Steve’s Scuba Tours
+                </a>
+            </article>
+        </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+        <h2>Contact</h2>
+        <p>
+            Email me at
+            <a href="mailto:cbaker8318@gmail.com">cbaker8318@gmail.com</a>.
+        </p>
+    </footer>
+    <script>
+    const scubaLink = document.querySelector(".project-link");
+    const oceanColors = ["#00d9e8", "#0077ff", "#00bfa5", "#7fffd4", "#b3ecff"];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sparkCount = 40;
+    let burstPlaying = false;
+
+    scubaLink.addEventListener("click", (event) => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey ||
+            event.altKey || reducedMotion.matches) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (burstPlaying) {
+            return;
+        }
+
+        burstPlaying = true;
+
+        for (let index = 0; index < sparkCount; index++) {
+            const spark = document.createElement("span");
+            const angle = (index / sparkCount) * Math.PI * 2;
+            const distance = 90 + Math.random() * 120;
+            const size = 12 + Math.random() * 12;
+
+            spark.className = "ocean-spark";
+            spark.setAttribute("aria-hidden", "true");
+            spark.style.setProperty("--spark-x", `${Math.cos(angle) * distance}px`);
+            spark.style.setProperty("--spark-y", `${Math.sin(angle) * distance}px`);
+            spark.style.setProperty("--spark-size", `${size}px`);
+            spark.style.setProperty("--spark-color", oceanColors[index % oceanColors.length]);
+
+            spark.addEventListener("animationend", () => spark.remove(), { once: true });
+            scubaLink.append(spark);
+        }
+
+        window.setTimeout(() => {
+            burstPlaying = false;
+            window.location.assign(scubaLink.href);
+        }, 1200);
+    });
+</script>
+</body>
+</html>
