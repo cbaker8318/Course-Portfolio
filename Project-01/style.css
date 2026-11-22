@@ -3,6 +3,7 @@
     --teal: #075e68;
     --seafoam: #c8ede7;
     --page-background: #eaf5f4;
+    --wave-edge: #9bcfc7;
     --white: #ffffff;
     --text: #243e4a;
     --border: #b5d8d4;
@@ -13,13 +14,24 @@
 }
 
 body {
+    --wave-width: max(clamp(12px, 6vw, 110px), calc((100% - 1320px) / 2));
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    background-color: var(--page-background);
+    background-color: var(--wave-edge);
+    background-image:
+        linear-gradient(to right, transparent 85%, var(--wave-edge)),
+        linear-gradient(to left, transparent 85%, var(--wave-edge)),
+        url("ocean wave.jpg"),
+        url("ocean wave.jpg");
+    background-position: left top, right top, left top, right top;
+    background-size: var(--wave-width) 100%;
+    background-repeat: no-repeat;
     color: var(--text);
     font-family: Verdana, Arial, sans-serif;
+    font-size: 1.125rem;
     line-height: 1.6;
 }
 
@@ -32,23 +44,30 @@ h3 {
 
 h1 {
     margin: 0 0 20px;
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(3rem, 7vw, 5rem);
 }
 
 h2 {
     margin: 0 0 16px;
     color: var(--teal);
-    font-size: 2rem;
+    font-size: clamp(2rem, 4vw, 2.6rem);
 }
 
 h3 {
     margin: 0 0 12px;
     color: var(--navy);
-    font-size: 1.35rem;
+    font-size: 1.5rem;
 }
 
 p {
     margin: 0 0 12px;
+}
+
+.site-header,
+main,
+.site-footer {
+    width: calc(100% - var(--wave-width) - var(--wave-width));
+    margin-inline: auto;
 }
 
 .site-header {
@@ -77,7 +96,6 @@ p {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Hover effect 1: navigation links */
 .nav-list a:hover,
 .nav-list a:focus-visible {
     background-color: var(--seafoam);
@@ -89,17 +107,21 @@ main {
     flex: 1;
     flex-direction: column;
     gap: 24px;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 32px 20px;
+    padding: 24px 0;
+    background-color: var(--wave-edge);
 }
 
 main section {
-    padding: 24px;
+    padding: clamp(20px, 3vw, 36px);
     border: 1px solid var(--border);
     border-radius: 12px;
     background-color: var(--white);
+    text-align: center;
+}
+
+#about p {
+    max-width: 75ch;
+    margin: 0 auto;
 }
 
 .skills-interests-layout {
@@ -107,28 +129,30 @@ main section {
     gap: 20px;
 }
 
-.interest-card {
-    flex: 1;
-    padding: 18px;
+.interest-card,
+.project-card {
+    padding: clamp(20px, 2.5vw, 32px);
     border: 1px solid var(--border);
     border-radius: 8px;
     background-color: var(--page-background);
+}
+
+.interest-card {
+    flex: 1;
+    min-width: 0;
 }
 
 .interest-card ul {
+    display: inline-block;
     margin: 0;
     padding-left: 20px;
+    text-align: left;
 }
 
 .project-card {
-    padding: 20px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background-color: var(--page-background);
     transition: background-color 0.2s ease;
 }
 
-/* Hover effect 2: project card */
 .project-card:hover,
 .project-card:focus-within {
     background-color: var(--seafoam);
@@ -138,21 +162,20 @@ main section {
     position: relative;
     display: inline-block;
     margin-top: 8px;
-    padding: 10px 16px;
+    padding: 14px 22px;
     border-radius: 6px;
     background-color: var(--teal);
     color: var(--white);
+    font-weight: bold;
     text-decoration: none;
     transition: background-color 0.2s ease;
 }
 
-/* Hover effect 3: project link */
 .project-link:hover,
 .project-link:focus-visible {
     background-color: var(--navy);
 }
 
-/* This creates an explosion when the project link is clicked. */
 .ocean-spark {
     position: absolute;
     top: 50%;
@@ -164,7 +187,7 @@ main section {
     background-color: var(--spark-color);
     box-shadow: 0 0 12px var(--spark-color);
     pointer-events: none;
-    animation: ocean-burst 1200ms ease-out forwards;
+    animation: ocean-burst 1100ms ease-out forwards;
 }
 
 @keyframes ocean-burst {
@@ -203,49 +226,38 @@ main section {
 
 .site-footer a {
     color: var(--seafoam);
+    overflow-wrap: anywhere;
     transition: color 0.2s ease;
 }
 
-/* Hover effect 4: email link */
 .site-footer a:hover,
 .site-footer a:focus-visible {
     color: var(--white);
 }
 
 @media (max-width: 600px) {
-    .skills-interests-layout {
-        flex-direction: column;
+    body {
+        --wave-width: 12px;
     }
 
     .site-header {
         padding: 32px 12px 24px;
     }
 
+    .nav-list {
+        gap: 4px 8px;
+    }
+
     main {
-        padding: 20px 12px;
+        gap: 16px;
+        padding-block: 16px;
     }
 
     main section {
         padding: 16px;
     }
 
-    .nav-list {
-        gap: 4px 8px;
+    .skills-interests-layout {
+        flex-direction: column;
     }
-}
-#about,
-#skills-interests,
-#projects {
-    text-align: center;
-}
-
-#about p {
-    max-width: 65ch;
-    margin: 0 auto;
-}
-
-.interest-card ul {
-    display: inline-block;
-    padding-left: 20px;
-    text-align: left;
 }
